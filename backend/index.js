@@ -2,8 +2,8 @@ const express = require('express');
 const { connectMongoDb } = require('./connection');
 const app  = express();
 const port = 8000;
-const userRouter = require('./routes/user');
-
+const vendorRouter = require('./routes/vendorRoutes');
+const bodyParser = require('body-parser');
 
 app.set("view engine", "ejs");
 
@@ -11,12 +11,15 @@ app.set("view engine", "ejs");
 connectMongoDb()
 
 // Middleware 
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(express.static('public'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // routes 
-app.use("/api/users",userRouter);
+app.use('/vendors', vendorRouter);
 
 // starting server
 app.listen(port, () => {
