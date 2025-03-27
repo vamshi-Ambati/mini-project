@@ -1,6 +1,7 @@
 import React from 'react';
+import "./styles/navbar.css"
 
-const Navbar = () => {
+const Navbar = ({handleShowLogin,handleShowRegister}) => {
   return (
     <>
       <div className="navSection">
@@ -8,8 +9,8 @@ const Navbar = () => {
          <h1>Vendor Dashboard</h1>
         </div>
         <div className="userAuth">
-          <button>Login</button>
-          <button>Register</button>
+          <span onClick={handleShowLogin}>Login</span>
+          <span onClick={handleShowRegister}>Register</span>
         </div>
       </div>
       

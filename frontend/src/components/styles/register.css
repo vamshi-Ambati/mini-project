@@ -1,0 +1,60 @@
+
+/* Register css  */
+
+.registerSection {
+    width: 300px; /* Adjust width as needed */
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 50%;
+  }
+  
+  .registerSection h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 16px;
+  
+  }
+  
+  .registerSection form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .registerSection input[type="text"],
+  .registerSection input[type="email"],
+  .registerSection input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .registerSection button[type="submit"] {
+    background-color: #007bff; /* Green for register */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 40%;
+    align-self: center;
+    /* margin-top: 10px; */
+  }
+  
+  .registerSection button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker green on hover */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .registerSection {
+      margin: 20px auto;
+      padding: 15px;
+    }
+  }

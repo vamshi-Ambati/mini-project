@@ -21,6 +21,9 @@ app.use(express.static('public'));
 // routes 
 app.use('/vendors', vendorRouter);
 
+app.get('/', (req, res) => {
+    res.send("Hello World")
+})
 // starting server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

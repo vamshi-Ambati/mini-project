@@ -1,0 +1,31 @@
+.navSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; /* Light grey background */
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .company h1 {
+    margin: 0;
+    font-size: 1.8rem; /* Slightly larger font for the company name */
+    color: #fff; /* Darker text color */
+    font-size: 16px;
+  }
+  
+  .userAuth span {
+    margin-left: 1.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #fff; /* Blue color for interactive elements */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+  }
+  
+  .userAuth span:hover {
+    color: #fff; /* Darker blue on hover */
+  }
+  
+  .userAuth span:first-child{
+      margin-left: 0;
+  }

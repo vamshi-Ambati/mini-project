@@ -1,10 +1,10 @@
 import React from 'react'
-import LandingPage from './vendorDashboard/pages/LandingPage'
 import "./App.css"
+import LandingPage from "./pages/LandingPage"
 const App = () => {
   return (
     <>
-      <LandingPage/>
+      <LandingPage />
     </>
   )
 }
