@@ -6,11 +6,11 @@ const Navbar = ({handleShowLogin,handleShowRegister}) => {
     <>
       <div className="navSection">
         <div className="company">
-         <h1>Vendor Dashboard</h1>
+         <h1>Foodie</h1>
         </div>
         <div className="userAuth">
           <span onClick={handleShowLogin}>Login</span>
-          <span onClick={handleShowRegister}>Register</span>
+          <span onClick={handleShowRegister}>signup</span>
         </div>
       </div>
       

@@ -1,18 +1,19 @@
 .addFirmSection {
-  width: 500px;
-  margin: 50px auto;
+  width: 480px; /* Use percentage for responsiveness */
+  max-width: 500px; /* Limit maximum width on larger screens */
+  margin: 30px auto; /* Adjust margin for smaller screens */
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 400px;
+  height: 470px; /* Adjust height automatically based on content */
 }
 
 .addFirmSection h1 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #333;
-  font-size: 16px;
+  font-size: 1.2rem; /* Use rem for scalable font size */
 }
 
 .addFirmSection form {
@@ -20,21 +21,22 @@
   flex-direction: column;
 }
 
-.category-heading{
+.category-heading {
   margin-right: 10px;
+  font-size: 1rem; /* Scalable font size */
 }
+
 .addFirmSection input[type="text"],
 .addFirmSection button {
   padding: 0.8rem;
-  /* margin-bottom: 1rem; */
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 1rem; /* Scalable font size */
 }
 
 .addFirmSection input[type="file"] {
-  /* padding-left: 0; */
   margin-bottom: 10px;
+  font-size: 1rem; /* Scalable font size */
 }
 
 .addFirmSection button {
@@ -43,8 +45,10 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 30%;
+  width: 100%; /* Make button full width on smaller screens */
   align-self: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .addFirmSection button:hover {
@@ -52,68 +56,125 @@
 }
 
 .check-inputs {
-  /* margin-bottom: 1rem; */
   display: flex;
-  margin-bottom: 0;
-  
+  flex-wrap: wrap; /* Allow checkboxes to wrap */
+  /* margin-bottom: 1rem; Add some margin at bottom */
 }
-.inputs-container label{
+
+.inputs-container label {
   color: #999;
   cursor: pointer;
+  font-size: 0.9rem; /* Scalable font size */
 }
+
 .check-inputs label {
+  /* margin-top: 0; */
   margin-right: 10px;
   font-weight: 500;
-  font-size: 13px;
-  /* color: #999; */
+  font-size: 0.9rem; /* Scalable font size */
+  margin-bottom: 10px;
 }
 
 .inputs-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2px;
+  gap: 5px; /* Increase gap for better spacing */
 }
 
 .checkbox-container {
   display: flex;
   align-items: center;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
+  margin-bottom: 10px; /* Add bottom margin for spacing */
+  /* margin-right: 10px; */
 }
 
 .checkbox-container label {
   margin-right: 0.5rem;
   font-weight: normal;
+  font-size: 0.9rem; /* Scalable font size */
 }
 
 .checkbox-container input[type="checkbox"] {
-  margin: 0;
+  margin: o;
 }
+
 .percentage-input {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 15px;
-  font-size: 13px;
+  font-size: 1rem; /* Scalable font size */
 }
 
-.percentage-symbol{
-    padding-left: 2px;
+.percentage-symbol {
+  padding-left: 2px;
 }
-.percentage-input input[type="number"]{
- padding: 0.8rem;
-  /* margin-bottom: 1rem; */
+
+.percentage-input input[type="number"] {
+  padding: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 1rem; /* Scalable font size */
   width: 100%;
-  
 }
+
 .percentage-input input[type="number"]::after {
   content: "%";
   position: absolute;
-  right: 5px; /* Adjust as needed */
+  right: 5px;
   top: 50%;
   transform: translateY(-50%);
-  color: #999; /* Placeholder color */
-  pointer-events: none; /* Make it non-interactive */
+  color: #999;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .addFirmSection {
+      padding: 15px;
+  }
+
+  .addFirmSection h1 {
+      font-size: 1.1rem;
+  }
+
+  .addFirmSection input[type="text"],
+  .addFirmSection button,
+  .percentage-input input[type="number"] {
+      padding: 0.7rem; /* Adjust padding */
+      font-size: 0.9rem; /* Adjust font size */
+  }
+
+  .category-heading,
+  .check-inputs label,
+  .checkbox-container label,
+  .percentage-input {
+      font-size: 0.9rem; /* Adjust font size */
+  }
+
+  .check-inputs {
+      flex-direction: column; /* Stack checkboxes vertically */
+      align-items: flex-start; /* Align checkboxes to the start */
+  }
+
+  .checkbox-container {
+      margin: 10px; /* Remove right margin */
+  }
+}
+
+@media (max-width: 480px) {
+  .addFirmSection {
+      width: 95%; /* Take up more width on smaller screens */
+      margin: 20px auto;
+      height: 470px;
+      width: 300px;
+  }
+  .addFirmSection .check-inputs label{
+    margin-bottom: 0;
+  }
+  .addFirmSection button{
+    /* width: 40%; */
+    margin-top: 5px;
+  }
 }
