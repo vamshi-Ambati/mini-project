@@ -34,7 +34,7 @@ app.use("/products",productRoutes)
 app.use("/uploads", express.static('uploads'));
 // starting server
 app.get('/', (req, res) => {
-    return res.send("Welcome to Foodie");
+    return res.send("<h1> Welcome to Foodie");
 })
 
 app.listen(port, () => {
