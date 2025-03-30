@@ -29,6 +29,7 @@ const vendorRegister = async (req, res) => {
 
 
 
+
 // Login a vendor
 const vendorLogin = async (req, res) => {
     const {email,password } = req.body;
@@ -49,5 +50,25 @@ const vendorLogin = async (req, res) => {
     
     
 }
+const getAllVendors = async (req, res) => {
+   try {
+    const vendors = await vendorModel.find().populate("firm");
+    res.json(vendors);
+   } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Server Error' });
+   }
+}
+const getVendorById = async (req, res) => {
+    const vendorId = req.params.id;
+    try {
+        const vendor = await vendorModel.findById(vendorId).populate("firm"  );
+        if (!vendor) return res.status(404).json({ message: 'Vendor not found' });
+        return res.json({vendor});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Server Error' });
+    }
+}
 
-module.exports = { vendorRegister,vendorLogin };
+module.exports = { vendorRegister,vendorLogin,getAllVendors ,getVendorById  };
