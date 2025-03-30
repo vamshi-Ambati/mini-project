@@ -8,9 +8,6 @@ const firmRouter = require('./routes/firmRoutes');
 const productRoutes = require('./routes/productRoutes');
 const path = require('path');
 const dotEnv = require('dotenv');
-const cors = require('cors');
-
-app.use(cors());
 
 dotEnv.config();
 

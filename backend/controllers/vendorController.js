@@ -53,7 +53,7 @@ const vendorLogin = async (req, res) => {
 const getAllVendors = async (req, res) => {
    try {
     const vendors = await vendorModel.find().populate("firm");
-    res.json(vendors);
+    res.json({vendors});
    } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Server Error' });
