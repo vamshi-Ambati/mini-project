@@ -10,7 +10,6 @@ const path = require('path');
 const dotEnv = require('dotenv');
 const cors = require('cors');
 
-// cors
 app.use(cors());
 
 dotEnv.config();
