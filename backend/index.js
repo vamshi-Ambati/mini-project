@@ -1,12 +1,18 @@
 const express = require('express');
 const { connectMongoDb } = require('./connection');
 const app  = express();
-const port = 8000;
+
 const vendorRouter = require('./routes/vendorRoutes');
 // const bodyParser = require('body-parser');
 const firmRouter = require('./routes/firmRoutes');
 const productRoutes = require('./routes/productRoutes');
 const path = require('path');
+const dotEnv = require('dotenv');
+
+dotEnv.config();
+
+
+const port = process.env.PORT || 8000;
 
 app.set("view engine", "ejs");
 
