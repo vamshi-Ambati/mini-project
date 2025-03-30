@@ -15,7 +15,7 @@ const connectMongoDb = async () => {
         console.error("Error connecting to MongoDB:", err);
     }
 };
-console.log("MONGO_URL:", process.env.MONGO_URL);
+// console.log("MONGO_URL:", process.env.MONGO_URL);
 
 
 module.exports = {
