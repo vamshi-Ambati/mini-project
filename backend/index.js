@@ -33,6 +33,10 @@ app.use('/firms', firmRouter);
 app.use("/products",productRoutes)
 app.use("/uploads", express.static('uploads'));
 // starting server
+app.get('/', (req, res) => {
+    return res.send("Welcome to Foodie");
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 })
