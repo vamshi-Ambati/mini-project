@@ -6,7 +6,6 @@ const vendorRouter = require('./routes/vendorRoutes');
 // const bodyParser = require('body-parser');
 const firmRouter = require('./routes/firmRoutes');
 const productRoutes = require('./routes/productRoutes');
-const path = require('path');
 const dotEnv = require('dotenv');
 const cors = require('cors');
 
