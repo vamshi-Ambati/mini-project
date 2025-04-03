@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./styles/login.css";
-// import { FaUser, FaLock } from 'react-icons/fa'; // Import icons
 import { API_URL } from "../data/apiPath";
+import { Link } from "react-router-dom";
 
-const Login = ({handleShowWelcome}) => {
+const Login = ({ handleShowWelcome, handleShowRegister }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false); // Add rememberMe state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,9 +21,6 @@ const Login = ({handleShowWelcome}) => {
       const data = await response.json();
       if (response.ok) {
         console.log(data);
-        // alert("Login Successful");
-        // setEmail("");
-        // setPassword("");
         localStorage.setItem("token", data.token);
         handleShowWelcome();
       }
@@ -30,9 +28,10 @@ const Login = ({handleShowWelcome}) => {
       console.error("login failed", error);
     }
   };
+
   return (
     <div className="loginSection">
-      <h1 className="login-heading">Login</h1>
+      <h1 className="login-heading">Login to Foodie !!</h1>
       <form action="" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -55,14 +54,27 @@ const Login = ({handleShowWelcome}) => {
         />
 
         <div className="login-links">
-          <h6 className="login-link">
-            <span>Forgot password</span>
-          </h6>
-          {/* <h6 className="login-link">Don't have an account? <span>Signup</span></h6> */}
+          <div className="remember-forgot"> {/* Container for remember me and forgot password */}
+            <label>
+              <input
+                type="checkbox"
+                // checked={rememberMe}
+                // onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              Remember me
+            </label>
+            <h6 className="login-link">
+              <span>Forgot password?</span>
+            </h6>
+          </div>
         </div>
         <button type="submit">Login</button>
         <h6 className="login-signup">
-          Already have an account? <span>Login</span>
+          Don't have an account?
+          <span onClick={handleShowRegister}>
+            {/* <Link to="/register">Create one</Link> */}
+            Create one
+          </span>
         </h6>
       </form>
     </div>
@@ -70,7 +82,3 @@ const Login = ({handleShowWelcome}) => {
 };
 
 export default Login;
-
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZW5kb3JJZCI6IjY3ZTk1ZTQxOGMyZjE3ZjQ5Y2M0YTFlZCIsImlhdCI6MTc0MzM0Nzk3NywiZXhwIjoxNzQzMzUxNTc3fQ.iFNIWXBOHBqYFGMCoH4hoz81K1-i0zIY8BIhorBB8qc
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZW5kb3JJZCI6IjY3ZTk1ZTQxOGMyZjE3ZjQ5Y2M0YTFlZCIsImlhdCI6MTc0MzM0ODA2OSwiZXhwIjoxNzQzMzUxNjY5fQ.18dIO56wG_ClXWClhooHP-DX_ex4XuAwPJze1XeLV-0

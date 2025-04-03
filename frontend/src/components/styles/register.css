@@ -1,8 +1,7 @@
 /* Register css  */
 
 .registerSection {
-  width: 300px; /* Use percentage for responsiveness */
-  max-width: 300px; /* Limit maximum width on larger screens */
+  width: 480px; /* Use percentage for responsiveness */
   margin: 50px auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -34,7 +33,7 @@
 }
 
  .registerSection [type="submit"] {
-  background-color: #007bff; /* Green for register */
+  background-color: #dc3545; /* Green for register */
   color: white;
   padding: 12px 20px; /* Increase padding */
   border: none;
@@ -48,7 +47,7 @@
 }
 
  .registerSection [type="submit"]:hover {
-  background-color: #0056b3; /* Darker green on hover */
+  background-color: #c91a2c; /* Darker green on hover */
 }
 
 .login-signup {
@@ -57,9 +56,12 @@
   font-weight: 100;
 }
 
-span {
-  color: #007bff;
+.login-signup span {
+  color: #dc3545;
   font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: 5px;
 }
 
 /* Responsive adjustments */
@@ -88,7 +90,7 @@ span {
 
 @media (max-width: 480px) { /* Smaller mobile screens */
   .registerSection {
-      width: 95%; /* Take up more width on smaller screens */
+      width: 70%; /* Take up more width on smaller screens */
       margin: 20px auto;
       height: 300px;
   }

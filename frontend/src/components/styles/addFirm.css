@@ -1,6 +1,5 @@
 .addFirmSection {
   width: 480px; /* Use percentage for responsiveness */
-  max-width: 500px; /* Limit maximum width on larger screens */
   margin: 30px auto; /* Adjust margin for smaller screens */
   padding: 20px;
   border: 1px solid #ddd;
@@ -40,7 +39,7 @@
 }
 
 .addFirmSection button {
-  background-color: #007bff;
+  background-color:#dc3545;
   color: white;
   border: none;
   cursor: pointer;
@@ -52,7 +51,7 @@
 }
 
 .addFirmSection button:hover {
-  background-color: #0056b3;
+  background-color:#c91a2c;
 }
 
 .check-inputs {

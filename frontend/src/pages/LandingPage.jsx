@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
+// import Sidebar from '../components/Sidebar'/
 import Login from '../components/Login'
 import Register from '../components/Register'
 import AddFirm from '../components/AddFirm'
@@ -52,18 +52,25 @@ const LandingPage = () => {
   }
   return (
     <>
-      <Navbar handleShowLogin={handleShowLogin} handleShowRegister={handleShowRegister} />
-    <div className="container">
-    <Sidebar handleShowAddFirm={handleShowAddFirm} handleShowAddProduct={handleShowAddProduct}/>
-      {showLogin && <Login handleShowWelcome={handleShowWelcome}/>}
-      {showRegister && <Register handleShowLogin = {handleShowLogin}/>}
-      {showAddFirm && <AddFirm />}
-      {showAddProduct && <AddProduct />}
-      {showWelcome && <Welcome />}
-    </div>
-
+      <Navbar
+        handleShowLogin={handleShowLogin}
+        handleShowRegister={handleShowRegister}
+        handleShowAddFirm={handleShowAddFirm}
+        handleShowAddProduct={handleShowAddProduct}
+      />
+      <div className="container">
+        {/* <Sidebar
+          handleShowAddFirm={handleShowAddFirm}
+          handleShowAddProduct={handleShowAddProduct}
+        /> */}
+        {showLogin && <Login handleShowWelcome={handleShowWelcome} handleShowRegister={handleShowRegister}/>}
+        {showRegister && <Register handleShowLogin={handleShowLogin} />}
+        {showAddFirm && <AddFirm />}
+        {showAddProduct && <AddProduct />}
+        {showWelcome && <Welcome />}
+      </div>
     </>
-  )
+  );
 }
 
 export default LandingPage

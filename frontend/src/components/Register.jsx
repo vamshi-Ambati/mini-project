@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles/register.css";
 import { API_URL } from "../data/apiPath";
+import {Link} from "react-router-dom"
 
 const Register = ({handleShowLogin}) => {
   const [username, setUsername] = useState("");
@@ -25,7 +26,7 @@ const Register = ({handleShowLogin}) => {
         setUsername("");
         setEmail("");
         setPassword("");
-        alert("Registration Successful");
+        // alert("Registration Successful");
         handleShowLogin();
       }
     } catch (error) {
@@ -47,7 +48,7 @@ const Register = ({handleShowLogin}) => {
   return (
     <>
       <div className="registerSection">
-        <h1>Signup</h1>
+        <h1>Signup to Foodie !!</h1>
         <form action="" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -83,7 +84,11 @@ const Register = ({handleShowLogin}) => {
           />
           <button type="submit">Signup</button>
           <h6 className="login-signup">
-            Already have an account? <span>Login</span>
+            Already have an account? 
+            <span onClick={handleShowLogin}>
+              {/* <Link to = "/login">Login</Link> */}
+              Login
+            </span>
           </h6>
         </form>
       </div>

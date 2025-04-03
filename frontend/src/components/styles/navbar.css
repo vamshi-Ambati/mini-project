@@ -1,42 +1,157 @@
-.navSection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007bff; 
-    /* background-color: orange; */
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    height: 70px;
-    /* font-size: 20px; */
-  }
-  
+/* styles/navbar.css */
 
+.navSection {
+  position: relative;
+  width: 100%;
+  background-color: #1f2937;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.navSection.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.company {
+  display: flex;
+  align-items: center;
+}
+
+.company h1 {
+  margin-left: 10px;
+  color: white;
+  font-size: 24px;
+  letter-spacing: 1.5px;
+}
+
+.company img {
+  background: white;
+  height: 50px; /* Adjusted height to match your React code */
+  border-radius: 50%;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+  color: white;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.list-items {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.list-items ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.list-items li {
+  margin: 0 20px;
+  cursor: pointer;
+  font-weight: 500;
+  color: aliceblue;
+  transition: color 0.3s ease;
+}
+
+.list-items li:hover {
+  color: orangered;
+  transition: color 0.3s ease;
+}
+
+.userAuth button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  color: white;
+  background-color: #dc3545;
+}
+
+.userAuth button:hover {
+  opacity: 0.8;
+}
+
+.company.hidden {
+  display: none;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .navSection {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-end;
+    margin-top: 10px;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .list-items {
+    text-align: right;
+  }
+
+  .list-items ul {
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+  }
+
+  .list-items li {
+    margin: 5px 0;
+    text-align: right;
+  }
+
+  .userAuth {
+    margin-top: 10px;
+    margin-left: auto;
+  }
+
+  .page-content {
+    padding-top: 0;
+  }
+
+  .page-content.menu-open {
+    padding-top: 60px;
+  }
+}
+
+@media (max-width: 480px) {
   .company h1 {
-    margin: 0;
-    font-size: 1.8rem; /* Slightly larger font for the company name */
-    color: #fff; /* Darker text color */
-    font-size: 20px;
-    cursor: pointer;
-    text-transform:uppercase;
-    font-size: 20px;
-    letter-spacing: 1.5px;
+    font-size: 1.5rem;
   }
-  
-  .userAuth span {
-    margin-left: 1.5rem;
-    cursor: pointer;
-    font-weight: 500;
-    color: #fff; /* Blue color for interactive elements */
-    transition: color 0.3s ease; /* Smooth color transition on hover */
-    text-transform:uppercase;
-    font-size: 14px;
-    letter-spacing: 1.5px;
-  }
-  
-  .userAuth span:hover {
-    color: #fff; /* Darker blue on hover */
-  }
-  
-  .userAuth span:first-child{
-      margin-left: 0;
-  }
+}
