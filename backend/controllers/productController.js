@@ -23,14 +23,15 @@ const addProduct = async (req, res) => {
     if (!firm) return res.status(404).json({message: 'Firm not found'});
 
     const product = new productModel({
-        productName,
-        price,
-        category,
-        bestSeller,
-        description,
-        image,
-        firm: firm._id
-    })
+      firmName: firm.firmName,
+      productName,
+      price,
+      category,
+      bestSeller,
+      description,
+      image,
+      firm: firm._id,
+    });
     const savedProduct = await product.save();
     console.log(savedProduct);
     firm.products.push(savedProduct)
