@@ -7,7 +7,7 @@ const {
 
 const router = express.Router();
 
-router.post("/add-product/:firmId", addProduct); // Correct singular 'product'
+router.post("/add-product/:id", addProduct); // Correct singular 'product'
 router.get("/:id/products", getProductByFirm);
 router.get("/uploads/:imageName", (req, res) => {
   const imageName = req.params.imageName;
