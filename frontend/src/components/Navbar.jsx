@@ -7,6 +7,7 @@ const Navbar = ({
   handleShowLogin,
   handleShowAddFirm,
   handleShowAddProduct,
+  handleShowAllProducts,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -14,7 +15,6 @@ const Navbar = ({
     setIsMenuOpen(!isMenuOpen);
     document.body.classList.toggle("menu-open", isMenuOpen);
   };
-
 
   return (
     <div className="navSection">
@@ -32,7 +32,7 @@ const Navbar = ({
             marginRight: "5px",
           }}
         />
-        <h1  >Foodie</h1>
+        <h1>Foodie</h1>
       </div>
       <div className="hamburger" onClick={toggleMenu}>
         {isMenuOpen ? "✕" : "☰"}
@@ -42,7 +42,7 @@ const Navbar = ({
           <ul>
             <li onClick={handleShowAddFirm}>Add Firm</li>
             <li onClick={handleShowAddProduct}>Add product</li>
-            <li>All Products</li>
+            <li onClick={handleShowAllProducts}>All Products</li>
             <li>User Details</li>
           </ul>
         </div>

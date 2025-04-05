@@ -3,7 +3,7 @@ import "./styles/login.css";
 import { API_URL } from "../data/apiPath";
 import { Link } from "react-router-dom";
 
-const Login = ({ handleShowWelcome, handleShowRegister }) => {
+const Login = ({ handleShowWelcome, handleShowRegister,handleShowAddFirm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false); // Add rememberMe state
@@ -24,6 +24,7 @@ const Login = ({ handleShowWelcome, handleShowRegister }) => {
         localStorage.setItem("token", data.token);
         handleShowWelcome();
       }
+      handleShowAddFirm()
     } catch (error) {
       console.error("login failed", error);
     }

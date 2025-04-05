@@ -7,7 +7,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 450px; /* Adjust height automatically based on content */
+  height: 500px; /* Adjust height automatically based on content */
 }
 
 .addProductSection h1 {
@@ -22,7 +22,8 @@
   flex-direction: column;
 }
 
-.addProductSection form input[type="text"] {
+.addProductSection form input[type="text"],
+.addProductSection form input[type="number"]{
   padding: 12px; /* Increase padding for better touch targets */
   margin-bottom: 15px;
   border: 1px solid #ddd;
@@ -33,7 +34,7 @@
 
 .addProductSection form input[type="file"] {
   padding-left: 0px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 1rem; /* Scalable font size */
 }
 
@@ -95,7 +96,39 @@
 .checkbox-container input[type="checkbox"] {
   margin: 0;
 }
+.addProductSection select{
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem; /* Scalable font size */
+}
+.addProductSection select::-ms-expand {
+  display: none; /* Hide the default IE arrow */
+}
+.addProductSection select option {
+  padding: 8px;
+  font-size: 1rem; /* Inherit or adjust option font size */
+  color: #333;
+  background-color: #fff;
+}
+/* Styles for the textarea */
+.addProductSection textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem; /* Adjust font size as needed */
+  resize: vertical; /* Allows the user to resize vertically */
+  min-height: 100px; /* Set a minimum height for better initial visibility */
+  line-height: 1.5; /* Improve readability of multi-line text */
+}
 
+.addProductSection textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Consistent focus style */
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .addProductSection {
@@ -133,7 +166,7 @@
   .addProductSection {
       width: 95%; /* Take up more width on smaller screens */
       margin: 20px auto;
-      height: 480px;
+      height: 535px;
       width: 300px;
   }
   .addProductSection button{

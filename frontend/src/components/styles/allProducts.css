@@ -1,0 +1,104 @@
+/* allProducts.css */
+
+.all-products {
+  padding: 15px; /* Adjust padding for smaller screens */
+}
+
+.all-products h1 {
+  font-size: 1.5em; /* Adjust font size for smaller screens */
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  /* Overflow for horizontal scrolling on small screens */
+  overflow-x: auto;
+  display: block; /* Ensures overflow works correctly */
+}
+
+.product-table th,
+.product-table td {
+  padding: 8px; /* Adjust padding for smaller screens */
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap; /* Prevent text wrapping in cells */
+  font-size: 0.9em; /* Adjust font size for smaller screens */
+}
+
+.product-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: center; /* Center headers by default for mobile */
+}
+
+.product-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.product-table img {
+  display: block;
+  margin: 0 auto;
+  width: 40px; /* Adjust image size for smaller screens */
+  height: 40px;
+}
+
+.pro-deleteBtn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 10px; /* Adjust button padding for smaller screens */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8em; /* Adjust button font size for smaller screens */
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pro-deleteBtn:hover {
+  background-color: #d32f2f;
+}
+
+/* Media query for desktop view (min-width: 768px) */
+@media (min-width: 768px) {
+  .all-products {
+    padding: 20px;
+  }
+
+  .all-products h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-align: left; /* Align heading left on desktop */
+  }
+
+  .product-table {
+    width: 100%;
+    overflow-x: initial; /* Remove horizontal scroll on larger screens */
+    display: table; /* Revert to default table display */
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 10px;
+    font-size: 1em;
+    white-space: normal; /* Allow text wrapping on larger screens */
+  }
+
+  .product-table th {
+    text-align: left; /* Align headers left on desktop */
+  }
+
+  .product-table img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .pro-deleteBtn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}

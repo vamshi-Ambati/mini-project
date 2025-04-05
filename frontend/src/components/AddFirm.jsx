@@ -1,37 +1,86 @@
 import React, { useState } from "react";
 import "./styles/addFirm.css";
+import { API_URL } from "../data/apiPath";
 
-const AddFirm = () => {
+const AddFirm = ({handleShowAddProduct}) => {
   const [firmName, setFirmName] = useState("");
   const [area, setArea] = useState("");
   const [category, setCategory] = useState([]);
   const [region, setRegion] = useState([]);
   const [offerPercentage, setOfferPercentage] = useState("");
   const [file, setFile] = useState(null);
+  // const [selectedFileName, setSelectedFileName] = useState(""); // To display selected file name
 
-  const handleSubmit = (e) => {
+  const handleCategoryChange = (e) => {
+    const newCategory = [...category];
+    newCategory.push(e.target.value);
+    setCategory(newCategory);
+  };
+  const handleRegionChange = (e) => {
+    const newRegion = [...region];
+    newRegion.push(e.target.value);
+    setRegion(newRegion);
+  };
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    console.log("Selected File:", selectedFile);
+    setFile(selectedFile);
+    // setSelectedFileName(selectedFile ? selectedFile.name : ""); // Update displayed file name
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("firmName", firmName);
-    // formData.append("area", area);
-    // formData.append("category", category);
-    // formData.append("region", region);
-    // formData.append("offerPercentage", offerPercentage);
-    // formData.append("file", file);
-
-    // API call to add firm with form data
-
+    // Getting token from local storage
     const loginToken = localStorage.getItem("token");
-    fetch(`${API_URL}/vendors/addFirm`, {
+    if (!loginToken) {
+      console.log("Please login to add a firm");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("firmName", firmName);
+    formData.append("area", area);
+    formData.append("offerPercentage", offerPercentage);
+    if (file) {
+      formData.append("image", file); // Key name must be 'image'
+      console.log("Image file appended to formData:", file.name);
+    } else {
+      console.log("Image file not found (formData not appended)");
+    }
+
+    category.forEach((value) => {
+      formData.append("category", value);
+    });
+    region.forEach((value) => {
+      formData.append("region", value);
+    });
+
+    // Add API_URL and token
+    const response = await fetch(`${API_URL}/firms/add-firm`, {
       method: "POST",
       headers: {
-        "Content-Type": "multipart/form-data",
+        token: `${loginToken}`,
       },
       body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error("Error:", error));
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log(data);
+      alert("Firm added successfully");
+      setFirmName("");
+      setArea("");
+      setCategory([]);
+      setRegion([]);
+      setOfferPercentage("");
+      setFile(null);
+      // setSelectedFileName("");
+      handleShowAddProduct()
+    } else {
+      console.error("Error adding firm:", data);
+      alert("Failed to add firm");
+    }
+    const firmId = data.firmId;
+    localStorage.setItem("firmId",firmId);    
+    
   };
   return (
     <div className="addFirmSection">
@@ -59,11 +108,23 @@ const AddFirm = () => {
           <div className="inputs-container">
             <div className="checkbox-container">
               <label htmlFor="veg">veg</label>
-              <input type="checkbox" id="veg" checked="" />
+              <input
+                id="veg"
+                type="checkbox"
+                value="veg"
+                checked={category.includes("veg")}
+                onChange={handleCategoryChange}
+              />
             </div>
             <div className="checkbox-container">
               <label htmlFor="non-veg">non-veg</label>
-              <input type="checkbox" id="non-veg" checked="" />
+              <input
+                id="non-veg"
+                type="checkbox"
+                value="non-veg"
+                checked={category.includes("non-veg")}
+                onChange={handleCategoryChange}
+              />
             </div>
           </div>
         </div>
@@ -76,8 +137,9 @@ const AddFirm = () => {
               <input
                 type="checkbox"
                 id="south-indian"
-                checked=""
+                checked={region.includes("south-indian")}
                 value="south-indian"
+                onChange={handleRegionChange}
               />
             </div>
             <div className="checkbox-container">
@@ -85,22 +147,35 @@ const AddFirm = () => {
               <input
                 type="checkbox"
                 id="north-indian"
-                checked=""
+                checked={region.includes("north-indian")}
                 value="north-indian"
+                onChange={handleRegionChange}
               />
             </div>
             <div className="checkbox-container">
               <label htmlFor="chinese">chinese</label>
-              <input type="checkbox" id="chinese" checked="" value="chinese" />
+              <input
+                type="checkbox"
+                id="chinese"
+                checked={region.includes("chinese")}
+                value="chinese"
+                onChange={handleRegionChange}
+              />
             </div>
             <div className="checkbox-container">
               <label htmlFor="bakery">bakery</label>
-              <input type="checkbox" id="bakery" checked="" value="bakery" />
+              <input
+                type="checkbox"
+                id="bakery"
+                checked={region.includes("bakery")}
+                value="bakery"
+                onChange={handleRegionChange}
+              />
             </div>
           </div>
         </div>
         {/* <input type="text" placeholder='Offer' /> */}
-        <div class="percentage-input">
+        <div className="percentage-input">
           {/* <label for="offerPercentage">Offer :</label> */}
           <input
             type="number"
@@ -115,8 +190,13 @@ const AddFirm = () => {
           />
           {/* <span class="percentage-symbol">%</span> */}
         </div>
-        <input type="file" />
-        <button className="Add-firm-btn">Submit</button>
+        <div>
+          <input type="file" onChange={handleFileChange} />
+          {/* {selectedFileName && <p>Selected File: {selectedFileName}</p>} */}
+        </div>
+        <button type="submit" className="Add-firm-btn">
+          Add Firm
+        </button>
       </form>
     </div>
   );

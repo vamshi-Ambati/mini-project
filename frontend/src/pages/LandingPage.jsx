@@ -6,6 +6,7 @@ import Register from '../components/Register'
 import AddFirm from '../components/AddFirm'
 import AddProduct from '../components/AddProduct'
 import Welcome from "../components/Welcome"
+import AllProducts from "../components/AllProducts";
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] =useState(false)
@@ -13,6 +14,7 @@ const LandingPage = () => {
   const [showAddFirm, setShowAddFirm] = useState(false)
   const [showAddProduct, setShowAddProduct] = useState(false)
   const [showWelcome, setShowWelcome] = useState(false)
+  const [showAllProducts, setShowAllProducts] = useState(false);
 
   const handleShowLogin=()=>{
     setShowLogin(true)
@@ -20,6 +22,7 @@ const LandingPage = () => {
     setShowAddFirm(false)
     setShowAddProduct(false)
     setShowWelcome(false)
+    setShowAllProducts(false);
   }
   const handleShowRegister=()=>{
     setShowRegister(true)
@@ -27,6 +30,7 @@ const LandingPage = () => {
     setShowAddFirm(false)
     setShowAddProduct(false)
     setShowWelcome(false)
+    setShowAllProducts(false);
   }
   const handleShowAddFirm=()=>{
     setShowAddFirm(true)
@@ -34,6 +38,7 @@ const LandingPage = () => {
     setShowRegister(false)
     setShowAddProduct(false)
     setShowWelcome(false)
+    setShowAllProducts(false);
   }
   const handleShowAddProduct=()=>{
     setShowAddProduct(true)
@@ -41,15 +46,25 @@ const LandingPage = () => {
     setShowRegister(false)
     setShowAddFirm(false)
     setShowWelcome(false)
+    setShowAllProducts(false);
   }
-  const handleShowWelcome=()=>{
-    setShowWelcome(true)
-    setShowLogin(false)
-    setShowRegister(false)
-    setShowAddFirm(false)
-    setShowAddProduct(false)
+  const handleShowWelcome = () => {
+    setShowWelcome(true);
+    setShowLogin(false);
+    setShowRegister(false);
+    setShowAddFirm(false);
+    setShowAddProduct(false);
+    setShowAllProducts(false);
+  };
 
-  }
+  const handleShowAllProducts = () => {
+    setShowAllProducts(true);
+    setShowLogin(false);
+    setShowRegister(false);
+    setShowAddFirm(false);
+    setShowAddProduct(false);
+    setShowWelcome(false);
+  };
   return (
     <>
       <Navbar
@@ -57,17 +72,26 @@ const LandingPage = () => {
         handleShowRegister={handleShowRegister}
         handleShowAddFirm={handleShowAddFirm}
         handleShowAddProduct={handleShowAddProduct}
+        handleShowAllProducts={handleShowAllProducts}
       />
       <div className="container">
         {/* <Sidebar
           handleShowAddFirm={handleShowAddFirm}
           handleShowAddProduct={handleShowAddProduct}
         /> */}
-        {showLogin && <Login handleShowWelcome={handleShowWelcome} handleShowRegister={handleShowRegister}/>}
+        {showLogin && (
+          <Login
+            handleShowWelcome={handleShowWelcome}
+            handleShowRegister={handleShowRegister}
+            handleShowAddFirm={handleShowAddFirm}
+          />
+        )}
         {showRegister && <Register handleShowLogin={handleShowLogin} />}
-        {showAddFirm && <AddFirm />}
+        {showAddFirm && <AddFirm handleShowAddProduct={handleShowAddProduct} />}
         {showAddProduct && <AddProduct />}
         {showWelcome && <Welcome />}
+        {showAllProducts && <AllProducts handleShowAllproducts={handleShowAllProducts}/>}
+        {/* <AllProducts /> */}
       </div>
     </>
   );
