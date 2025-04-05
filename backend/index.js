@@ -32,7 +32,7 @@ app.use(express.static('public'));
 // routes 
 app.use('/vendors', vendorRouter);
 app.use('/firms', firmRouter);
-app.use("/products",productRoutes)
+app.use("/product",productRoutes)
 app.use("/uploads", express.static('uploads'));
 // starting server
 app.get('/', (req, res) => {
