@@ -26,7 +26,8 @@ const addProduct = async (req, res) => {
     const image = req.file ? req.file.filename : undefined;
 
     // Find the firm by the ID provided in the route parameters (assuming the parameter is named 'firmId')
-    const firm = await firmModel.findById(req.params.firmId);
+    const firmId = req.params.id
+    const firm = await firmModel.findById(firmId);
     if (!firm) {
       return res.status(404).json({ message: "Firm not found" });
     }
