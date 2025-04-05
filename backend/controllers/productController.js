@@ -1,72 +1,110 @@
-const productModel = require("../models/Product")
-const multer = require('multer');
+const productModel = require("../models/Product");
+const multer = require("multer");
 const firmModel = require("../models/Firm");
-const path = require("path")
+const path = require("path");
+
+// Configure multer for file storage
 const storage = multer.diskStorage({
-    destination: (req,file,cb)=>{
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname) );
-    }
-})
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // Specify the directory where uploaded files will be stored
+  },
+  filename: (req, file, cb) => {
+    // Create a unique filename using the current timestamp and the original file extension
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 
-const upload = multer({storage});
+// Create the multer upload instance
+const upload = multer({ storage });
 
+// Controller function to add a new product
 const addProduct = async (req, res) => {
-    try {
-        const {productName,price,category,bestSeller,description} = req.body;
-        const image = req.file? req.file.filename : undefined;
+  try {
+    // Extract product details from the request body
+    const { productName, price, category, bestSeller, description } = req.body;
+    // Determine the filename of the uploaded image, if any
+    const image = req.file ? req.file.filename : undefined;
 
-    
-    const firm = await firmModel.findById(req.params.id);
-    if (!firm) return res.status(404).json({message: 'Firm not found'});
+    // Find the firm by the ID provided in the route parameters (assuming the parameter is named 'firmId')
+    const firm = await firmModel.findById(req.params.firmId);
+    if (!firm) {
+      return res.status(404).json({ message: "Firm not found" });
+    }
 
+    // Create a new product instance
     const product = new productModel({
-        productName,
-        price,
-        category,
-        bestSeller,
-        description,
-        image,
-        firm: firm._id
-    })
+      productName,
+      price,
+      // Assuming 'category' is sent as an array from the frontend
+      category: Array.isArray(category) ? category : [category],
+      bestSeller,
+      description,
+      image,
+      firm: firm._id, // Associate the product with the found firm
+    });
+
+    // Save the new product to the database
     const savedProduct = await product.save();
-    console.log(savedProduct);
-    firm.products.push(savedProduct)
+    console.log("Product saved successfully:", savedProduct);
+
+    // Add the saved product's ID to the firm's list of products
+    firm.products.push(savedProduct._id);
     await firm.save();
-    return res.status(201).json({msg:"Product added successfully"});
+    console.log("Product added to firm:", firm);
 
-    } catch (error) {
-        res.status(500).json({error:"internal server error"});
+    // Respond with a success status and message
+    return res.status(201).json({ msg: "Product added successfully" });
+  } catch (error) {
+    console.error("Error adding product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Controller function to get all products for a specific firm
+const getProductByFirm = async (req, res) => {
+  try {
+    // Find the firm by ID and populate the 'products' field
+    const firm = await firmModel
+      .findById(req.params.firmId)
+      .populate("products");
+    if (!firm) {
+      return res.status(404).json({ message: "Firm not found" });
     }
-}
 
-const getProductByFirm= async (req, res) => {
-    try {
-        const firm = await firmModel.findById(req.params.id).populate('products');
-        if (!firm) return res.status(404).json({message: 'Firm not found'});
+    const restaurantName = firm.firmName;
+    // Alternatively, you can directly query the Product model for products belonging to the firm
+    // const products = await productModel.find({ firm: firm._id });
 
-        const restaurantName = firm.firmName;
-        const products = await productModel.find({firm: firm._id})
-        res.status(200).json({restaurantName,products});
-    } catch (error) {
-        res.status(500).json({error:"internal server error"});
-    }
-}
+    // Respond with the restaurant name and the list of products
+    res.status(200).json({ restaurantName, products: firm.products });
+  } catch (error) {
+    console.error("Error getting products by firm:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
+// Controller function to delete a product by its ID
 const deleteProductById = async (req, res) => {
-    try {
-        const product = await productModel.findByIdAndDelete(req.params.id);
-        if (!product) return res.status(404).json({message: 'Product not found'});
-
-        return res.status(200).json({msg:"Product deleted successfully"});
-    } catch (error) {
-        res.status(500).json({error:"internal server error"});
+  try {
+    // Find and delete the product by its ID
+    const product = await productModel.findByIdAndDelete(req.params.productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
     }
-}
+
+    // Optionally, you might want to remove the product reference from the associated Firm's 'products' array
+
+    // Respond with a success status and message
+    return res.status(200).json({ msg: "Product deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 module.exports = {
-    addProduct:[upload.single('image'), addProduct],getProductByFirm, deleteProductById
-    
-}
+  // Apply the multer middleware to handle single image uploads with the field name 'image'
+  addProduct: [upload.single("image"), addProduct],
+  getProductByFirm,
+  deleteProductById,
+};
