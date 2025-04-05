@@ -55,7 +55,7 @@ const getProductByFirm = async (req, res) => {
     if (!firm) {
       return res.status(404).json({ error: "No firm found" });
     }
-    const products = await productModel.find({ firm: firmId });
+    const products = await productModel.find({ firm: req.params.id });
     res.status(200).json(products);
   } catch (error) {
     console.error(error);
