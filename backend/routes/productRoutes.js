@@ -3,7 +3,7 @@ const {addProduct , getProductByFirm,deleteProductById} = require('../controller
 
 const router = express.Router();
 
-router.post('/add-products/:id',addProduct)
+router.post('/add-products/:firmId',addProduct)
 router.get("/:id/products", getProductByFirm)
 router.get("/uploads/:imageName", (req, res) => {
     const imageName = req.params.imageName;
