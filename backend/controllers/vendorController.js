@@ -54,14 +54,19 @@ const vendorLogin = async (req, res) => {
 
 
 const getAllVendors = async (req, res) => {
-   try {
+  try {
     const vendors = await vendorModel.find().populate("firm");
-    res.json({vendors});
-   } catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: 'Server Error' });
-   }
-}
+    const vendorList = vendors.map((vendor) => ({
+      vendorId: vendor._id,
+      vendorFirmId: vendor.firm.map((firm) => firm._id), // Get an array of firm IDs
+      vendorData: vendor,
+    }));
+    res.json({ vendors: vendorList });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
 const getVendorById = async (req, res) => {
     const vendorId = req.params.id;
     try {
