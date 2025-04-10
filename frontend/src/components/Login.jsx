@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "./styles/login.css";
 import { API_URL } from "../data/apiPath";
-import { Link } from "react-router-dom";
 
-const Login = ({ handleShowWelcome, handleShowRegister,handleShowAddFirm }) => {
+const Login = ({
+  handleShowWelcome,
+  handleShowRegister,
+  handleShowAddFirm,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false); // Add rememberMe state
@@ -19,12 +22,37 @@ const Login = ({ handleShowWelcome, handleShowRegister,handleShowAddFirm }) => {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
+      console.log(data);
+
       if (response.ok) {
         console.log(data);
+
         localStorage.setItem("token", data.token);
         handleShowWelcome();
+        // window.location.reload();
+        handleShowAddFirm();
       }
-      handleShowAddFirm()
+      const vendorId = data.vendorId;
+      console.log("Finding Vendor ID: ", vendorId);
+      const vendorResponse = await fetch(
+        `${API_URL}/vendors/all-vendors/${vendorId}`
+      );
+      const vendorData = await vendorResponse.json();
+      // console.log(vendorData);
+
+      if (vendorResponse.ok) {
+        console.log("vendor Data", vendorData);
+
+        const vendorFirmId = vendorData.vendor.firm[0]?._id || null; // Access _id of the first firm
+        const vendorFirmName = vendorData.vendor.firm[0]?.firmName || null;
+
+        console.log("Vendor Firm ID:", vendorFirmId);
+        console.log("Vendor Firm Name:", vendorFirmName);
+
+        localStorage.setItem("vendorFirmId", vendorFirmId);
+        localStorage.setItem("vendorFirmName", vendorFirmName);
+        window.location.reload()
+      }
     } catch (error) {
       console.error("login failed", error);
     }
@@ -55,7 +83,9 @@ const Login = ({ handleShowWelcome, handleShowRegister,handleShowAddFirm }) => {
         />
 
         <div className="login-links">
-          <div className="remember-forgot"> {/* Container for remember me and forgot password */}
+          <div className="remember-forgot">
+            {" "}
+            {/* Container for remember me and forgot password */}
             <label>
               <input
                 type="checkbox"

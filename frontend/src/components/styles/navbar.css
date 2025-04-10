@@ -18,10 +18,15 @@
   left: 0;
   z-index: 100;
 }
+.firmName h1{
+  color: white;
+  font-size: 20px;
+}
 
 .company {
   display: flex;
   align-items: center;
+  margin: 10px;
 }
 
 .company h1 {

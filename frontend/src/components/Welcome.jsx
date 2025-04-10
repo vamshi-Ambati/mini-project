@@ -1,8 +1,12 @@
 import React from 'react'
 
 const Welcome = () => {
+    const firmName = localStorage.getItem("vendorFirmName");
+
   return (
-    <h1>Welcome to Foodie</h1>
+    <center>
+      <h1>Firm Name:{firmName}</h1>
+    </center>
   )
 }
 

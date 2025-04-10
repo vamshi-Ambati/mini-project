@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/navbar.css";
 import logo from "../components/images/logo.jpeg";
-import { useNavigate } from "react-router-dom";
+import { API_URL } from "../data/apiPath";
 
 const Navbar = ({
   handleShowLogin,
@@ -10,18 +10,40 @@ const Navbar = ({
   handleShowAllProducts,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.classList.toggle("menu-open", isMenuOpen);
+    document.body.classList.toggle("menu-open", !isMenuOpen); // Corrected toggle logic
   };
 
+  useEffect(() => {
+    // Check for a token in local storage on component mount
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("vendorFirmId");
+    localStorage.removeItem("vendorFirmName");
+    window.location.reload();
+  };
+
+  const handleLoginClick = () => {
+    handleShowLogin();
+    // You might want to close the menu after clicking login on mobile
+    setIsMenuOpen(false);
+    document.body.classList.remove("menu-open");
+  };
+  const firmName = localStorage.getItem("vendorFirmName")
   return (
     <div className="navSection">
       <div
         className={`company ${isMenuOpen ? "hidden" : ""}`}
-        // Add onClick handler
-        style={{ cursor: "pointer" }} // Make it look clickable
+        style={{ cursor: "pointer" }}
       >
         <img
           src={logo}
@@ -37,6 +59,9 @@ const Navbar = ({
       <div className="hamburger" onClick={toggleMenu}>
         {isMenuOpen ? "✕" : "☰"}
       </div>
+      {/* <div className="firmName">
+        <h1>Firm Name:{firmName}</h1>
+      </div> */}
       <div className={`menu ${isMenuOpen ? "open" : ""}`}>
         <div className="list-items">
           <ul>
@@ -47,8 +72,11 @@ const Navbar = ({
           </ul>
         </div>
         <div className="userAuth">
-          <button onClick={handleShowLogin}>Login</button>
-          {/* <button onClick={handleLogout}>Logout</button> */}
+          {isLoggedIn ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <button onClick={handleLoginClick}>Login</button>
+          )}
         </div>
       </div>
     </div>

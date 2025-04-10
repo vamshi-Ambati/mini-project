@@ -8,7 +8,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const firmId = localStorage.getItem("firmId");
+      const firmId = localStorage.getItem("vendorFirmId");
       if (!firmId) {
         console.error("No firmId found in local storage");
         // setError("No firm ID found.");
@@ -40,8 +40,25 @@ const AllProducts = () => {
     fetchProducts();
   }, []);
 
-  const handleDelete = (productId) => {
-    console.log(`Deleting product with ID: ${productId}`);
+  const handleDelete = async (productId) => {
+    const response = await fetch(
+      `${API_URL}/products/delete-product/${productId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) {
+      const updatedProducts = products.filter(
+        (product) => product._id !== productId
+      );
+      setProducts(updatedProducts);
+      confirm("Are you sure");
+      alert("Product deleted successfully");
+    }
   };
 
   return (

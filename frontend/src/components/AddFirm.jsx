@@ -12,14 +12,20 @@ const AddFirm = ({handleShowAddProduct}) => {
   // const [selectedFileName, setSelectedFileName] = useState(""); // To display selected file name
 
   const handleCategoryChange = (e) => {
-    const newCategory = [...category];
-    newCategory.push(e.target.value);
-    setCategory(newCategory);
+    const value = e.target.value;
+    if (e.target.checked) {
+      setCategory([...category, value]);
+    } else {
+      setCategory(category.filter((item) => item !== value));
+    }
   };
   const handleRegionChange = (e) => {
-    const newRegion = [...region];
-    newRegion.push(e.target.value);
-    setRegion(newRegion);
+    const value = e.target.value;
+    if (e.target.checked) {
+      setRegion([...region, value]);
+    } else {
+      setRegion(region.filter((item) => item!== value));
+    }
   };
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -137,9 +143,9 @@ const AddFirm = ({handleShowAddProduct}) => {
               <input
                 type="checkbox"
                 id="south-indian"
-                checked={region.includes("south-indian")}
                 value="south-indian"
                 onChange={handleRegionChange}
+                checked={region.includes("south-indian")}
               />
             </div>
             <div className="checkbox-container">
@@ -147,9 +153,9 @@ const AddFirm = ({handleShowAddProduct}) => {
               <input
                 type="checkbox"
                 id="north-indian"
-                checked={region.includes("north-indian")}
                 value="north-indian"
                 onChange={handleRegionChange}
+                checked={region.includes("north-indian")}
               />
             </div>
             <div className="checkbox-container">
@@ -157,9 +163,9 @@ const AddFirm = ({handleShowAddProduct}) => {
               <input
                 type="checkbox"
                 id="chinese"
-                checked={region.includes("chinese")}
                 value="chinese"
                 onChange={handleRegionChange}
+                checked={region.includes("chinese")}
               />
             </div>
             <div className="checkbox-container">
@@ -167,9 +173,9 @@ const AddFirm = ({handleShowAddProduct}) => {
               <input
                 type="checkbox"
                 id="bakery"
-                checked={region.includes("bakery")}
                 value="bakery"
                 onChange={handleRegionChange}
+                checked={region.includes("bakery")}
               />
             </div>
           </div>
