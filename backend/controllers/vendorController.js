@@ -58,13 +58,12 @@ const getAllVendors = async (req, res) => {
     const vendors = await vendorModel.find().populate("firm");
 
     const formattedVendors = vendors.map((vendor) => ({
-      vendorId: vendor._id.toString(), // Convert ObjectId to string for consistency
-      vendorFirmId:
-        vendor.firm.length > 0 ? vendor.firm[0]._id.toString() : null, // Get the ID of the first firm
-      vendor: vendor.toObject(), // Convert Mongoose document to a plain JavaScript object
+      vendorId: vendor._id, // Convert ObjectId to string for consistency
+      vendorFirmId: vendor.firm.length > 0 ? vendor.firm[0]._id : null, // Get the ID of the first firm
+      vendor: vendor, // Convert Mongoose document to a plain JavaScript object
     }));
 
-    res.json(formattedVendors);
+    res.json({ vendors: formattedVendors });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Server Error" });
