@@ -56,12 +56,15 @@ const vendorLogin = async (req, res) => {
 const getAllVendors = async (req, res) => {
   try {
     const vendors = await vendorModel.find().populate("firm");
-    const vendorList = vendors.map((vendor) => ({
-      vendorId: vendor._id,
-      vendorFirmId: vendor.firm.map((firm) => firm._id), // Get an array of firm IDs
-      vendorData: vendor,
+
+    const formattedVendors = vendors.map((vendor) => ({
+      vendorId: vendor._id.toString(), // Convert ObjectId to string for consistency
+      vendorFirmId:
+        vendor.firm.length > 0 ? vendor.firm[0]._id.toString() : null, // Get the ID of the first firm
+      vendor: vendor.toObject(), // Convert Mongoose document to a plain JavaScript object
     }));
-    res.json({ vendors: vendorList });
+
+    res.json(formattedVendors);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Server Error" });
