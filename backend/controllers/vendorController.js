@@ -31,25 +31,28 @@ const vendorRegister = async (req, res) => {
 
 
 // Login a vendor
+// Login a vendor
 const vendorLogin = async (req, res) => {
-    const {email,password } = req.body;
-    // Check if email exists
-    const vendor = await vendorModel.findOne({ email });
-    if (!vendor) 
-        return res.status(404).json({ message: 'Email not found' });
+  const { email, password } = req.body;
+  // Check if email exists
+  const vendor = await vendorModel.findOne({ email });
+  if (!vendor) return res.status(404).json({ message: "Email not found" });
 
-    // Check if password is correct
-    const isMatch = await bcrypt.compare(password, vendor.password);
-    if (!isMatch) 
-        return res.status(400).json({ message: 'Invalid password' });
+  // Check if password is correct
+  const isMatch = await bcrypt.compare(password, vendor.password);
+  if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
-    // Generate JWT token
-    const token = jwt.sign({ vendorId: vendor._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
-    res.json({ message: 'Logged in successfully' ,token});
-    console.log(token);
-    
-    
-}
+  // Generate JWT token
+  const token = jwt.sign({ vendorId: vendor._id }, process.env.SECRET_KEY, {
+    expiresIn: "1h",
+  });
+
+  // Send the token and the vendor's ID in the response
+  res.json({ message: "Logged in successfully", token, vendorId: vendor._id });
+  console.log(token);
+};
+
+
 const getAllVendors = async (req, res) => {
    try {
     const vendors = await vendorModel.find().populate("firm");
